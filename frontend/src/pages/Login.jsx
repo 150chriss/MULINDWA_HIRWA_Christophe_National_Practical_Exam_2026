@@ -39,20 +39,23 @@ export default function Login() {
       // Check if login was successful
       if (res.data && res.data.msg) {
         toast.success(res.data.msg)
-        
+
         // Store user data in localStorage
+        if (res.data.token) {
+          localStorage.setItem('token', res.data.token)
+        }
         if (res.data.user) {
           localStorage.setItem('userId', res.data.user._id)
           localStorage.setItem('userName', `${res.data.user.firstname} ${res.data.user.lastname}`)
           localStorage.setItem('userEmail', res.data.user.email)
         }
 
-        // Navigate to dashboard on successful login
-        navigate('/dashboard')
+        // Navigate to department on successful login
+        navigate('/department')
       }
     } catch (error) {
       console.error('Error logging in user:', error)
-      
+
       // Handle specific error messages
       if (error.response && error.response.data) {
         if (error.response.data.error === 'User not found') {
@@ -69,7 +72,7 @@ export default function Login() {
         setLoginError('Connection error. Please try again.')
         toast.error('Connection error. Please try again.')
       }
-      
+
       // Keep user on login page on failure
       // Don't navigate anywhere
     } finally {
@@ -78,42 +81,42 @@ export default function Login() {
   }
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4">
-        <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">   
-              <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Login</h1>
-              <form onSubmit={handlesubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={form.email}
-                    onChange={handlechange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="your@email.com"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-                  <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={form.password}
-                    onChange={handlechange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="••••••••"
-                  />
-                </div>
-                <button type="submit" disabled={loading} className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
-                  {loading ? 'Processing...' : 'Login'}
-                </button>
-                <p className="text-center text-gray-600 text-sm">Don't have an account? <Link to="/register" className="text-blue-600 hover:text-blue-800 font-semibold">Register here</Link></p>
-              </form>
-        </div>
-        
+      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Login</h1>
+        <form onSubmit={handlesubmit} className="space-y-6">
+          <div className="space-y-2">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={form.email}
+              onChange={handlechange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="your@email.com"
+            />
+          </div>
+          <div className="space-y-2">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={form.password}
+              onChange={handlechange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="••••••••"
+            />
+          </div>
+          <button type="submit" disabled={loading} className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
+            {loading ? 'Processing...' : 'Login'}
+          </button>
+          <p className="text-center text-gray-600 text-sm">Don't have an account? <Link to="/register" className="text-blue-600 hover:text-blue-800 font-semibold">Register here</Link></p>
+        </form>
+      </div>
+
     </div>
   )
 }

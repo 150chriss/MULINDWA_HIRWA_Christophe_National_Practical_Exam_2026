@@ -17,10 +17,10 @@ export default function Sidebar() {
   }
 
   const menuItems = [
-    { icon: '📊', label: 'Dashboard', path: '/dashboard' },
-    { icon: '📦', label: 'Products', path: '/dashboard' },
-    { icon: '🛒', label: 'Sales', path: '/dashboard' },
-    { icon: '⚙️', label: 'Settings', path: '#' },
+    { icon: '🏢', label: 'Department', path: '/department' },
+    { icon: '👥', label: 'Employee', path: '/employee' },
+    { icon: '💰', label: 'Salary', path: '/salary' },
+    { icon: '📊', label: 'Reports', path: '/reports' },
   ]
 
   return (
@@ -35,9 +35,8 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-0 h-screen bg-gradient-to-b from-indigo-600 to-indigo-800 text-white transition-all duration-300 ${
-          isOpen ? 'w-64' : 'w-20'
-        } z-40`}
+        className={`fixed left-0 top-0 h-screen bg-gradient-to-b from-indigo-600 to-indigo-800 text-white transition-all duration-300 ${isOpen ? 'w-64' : 'w-20'
+          } z-40`}
       >
         {/* Logo */}
         <div className="flex items-center justify-center h-20 border-b border-indigo-500">
@@ -52,11 +51,10 @@ export default function Sidebar() {
             <button
               key={idx}
               onClick={() => item.path !== '#' && navigate(item.path)}
-              className={`w-full flex items-center gap-4 px-4 py-3 rounded-lg mb-2 transition-all duration-200 ${
-                location.pathname === item.path
+              className={`w-full flex items-center gap-4 px-4 py-3 rounded-lg mb-2 transition-all duration-200 ${location.pathname === item.path
                   ? 'bg-indigo-500 shadow-lg font-bold'
                   : 'hover:bg-indigo-500 hover:shadow-lg'
-              } ${isOpen ? 'justify-start' : 'justify-center'}`}
+                } ${isOpen ? 'justify-start' : 'justify-center'}`}
               title={!isOpen ? item.label : ''}
             >
               <span className="text-xl">{item.icon}</span>
@@ -69,9 +67,8 @@ export default function Sidebar() {
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-indigo-500">
           <button
             onClick={handleLogoutClick}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-rose-500 hover:bg-rose-600 transition-all duration-200 font-medium text-sm ${
-              isOpen ? 'justify-start' : 'justify-center'
-            }`}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-rose-500 hover:bg-rose-600 transition-all duration-200 font-medium text-sm ${isOpen ? 'justify-start' : 'justify-center'
+              }`}
           >
             <span className="text-lg">🚪</span>
             {isOpen && <span>Logout</span>}
